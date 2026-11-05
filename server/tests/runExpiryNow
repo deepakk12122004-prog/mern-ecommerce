@@ -1,0 +1,43 @@
+// LOCAL TEST HELPER. Run from server/: 
+//   node tests/runExpiryNow.js          (uses the normal window) 
+//   node tests/runExpiryNow.js 0        (treat ALL unpaid UPI orders as expired) 
+// Runs the expiry job once, right now. With 0 it also ignores the 
+// "someone is paying right now" safety wait, so use it only for tests. 
+require("../config/dnsFix"); 
+const { RAZORPAY_KEY_ID } = require("../config/env"); 
+const { connectDB, disconnectDB } = require("../config/db"); 
+const { expireUnpaidOrders } = require("../jobs/expireUnpaidOrders"); 
+ 
+async function main() { 
+  if (RAZORPAY_KEY_ID && !RAZORPAY_KEY_ID.startsWith("rzp_test_")) { 
+    console.error("Refusing to run: this helper only works with TEST keys."); 
+    process.exit(1); 
+  } 
+ 
+  const arg = process.argv[2]; 
+  const options = {}; 
+  if (arg !== undefined) { 
+    const minutes = Number(arg); 
+    if (!Number.isFinite(minutes) || minutes < 0) { 
+      console.error("Usage: node tests/runExpiryNow.js [minutes]"); 
+      process.exit(1); 
+    } 
+    options.windowMinutes = minutes; 
+    if (minutes === 0) options.graceMinutes = 0; 
+  } 
+ 
+  await connectDB(); 
+  try { 
+    const summary = await expireUnpaidOrders(options); 
+    console.log("Expiry run finished:", summary); 
+  } finally { 
+    await disconnectDB(); 
+  } 
+} 
+ 
+main() 
+  .then(() => process.exit(0)) 
+  .catch((err) => { 
+    console.error("Failed:", err.message); 
+    process.exit(1); 
+  });

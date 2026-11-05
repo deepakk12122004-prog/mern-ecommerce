@@ -1,0 +1,132 @@
+// TEMPORARY fake data. Shapes match our Mongoose schemas. 
+export const mockProducts = [ 
+  { 
+    _id: "p1", 
+    name: "Wireless Headphones", 
+    description: "Over-ear Bluetooth headphones with 30-hour battery life.", 
+    price: 59.99, 
+    category: "Electronics", 
+    stock: 12, 
+    image: { url: "" }, 
+  }, 
+  { 
+    _id: "p2", 
+    name: "Smart Watch", 
+    description: "Fitness tracking, heart-rate monitor, and notifications.", 
+    price: 129, 
+    category: "Electronics", 
+    stock: 5, 
+    image: { url: "" }, 
+  }, 
+  { 
+    _id: "p3", 
+    name: "Running Shoes", 
+    description: "Lightweight breathable shoes with extra cushioning.", 
+    price: 89.5, 
+    category: "Fashion", 
+    stock: 0, 
+    image: { url: "" }, 
+  }, 
+  { 
+    _id: "p4", 
+    name: "Denim Jacket", 
+    description: "Classic medium-wash denim jacket with a relaxed fit.", 
+    price: 74, 
+    category: "Fashion", 
+    stock: 9, 
+    image: { url: "" }, 
+  }, 
+  { 
+    _id: "p5", 
+    name: "Ceramic Coffee Mug", 
+    description: "350 ml glazed ceramic mug. Dishwasher safe.", 
+    price: 12, 
+    category: "Home", 
+    stock: 40, 
+    image: { url: "" }, 
+  }, 
+  { 
+    _id: "p6", 
+    name: "Desk Lamp", 
+    description: "Adjustable LED desk lamp with three brightness levels.", 
+    price: 34.25, 
+    category: "Home", 
+    stock: 15, 
+    image: { url: "" }, 
+  }, 
+  { 
+    _id: "p7", 
+    name: "JavaScript Handbook", 
+    description: "A practical guide to modern JavaScript and async code.", 
+    price: 24.99, 
+    category: "Books", 
+    stock: 20, 
+    image: { url: "" }, 
+  }, 
+  { 
+    _id: "p8", 
+    name: "Bluetooth Speaker", 
+    description: "Portable waterproof speaker with deep bass.", 
+    price: 45, 
+    category: "Electronics", 
+    stock: 3, 
+    image: { url: "" }, 
+  }, 
+]; 
+ 
+const demoAddress = { 
+  fullName: "Demo User", 
+  address: "12 Park Street", 
+  city: "Kolkata", 
+  postalCode: "700016", 
+  country: "India", 
+  phone: "9876543210", 
+}; 
+ 
+// Seed orders belong to the demo user "u1" (see authService.js) 
+export const mockOrders = [ 
+  { 
+    _id: "ord100234", 
+    user: "u1", 
+    items: [ 
+      { 
+        product: "p1", 
+        name: "Wireless Headphones", 
+        price: 59.99, 
+        quantity: 1, 
+      }, 
+      { 
+        product: "p5", 
+        name: "Ceramic Coffee Mug", 
+        price: 12, 
+        quantity: 2, 
+      }, 
+    ], 
+    shippingAddress: demoAddress, 
+    paymentMethod: "COD", 
+    itemsPrice: 83.99, 
+    shippingPrice: 7.99, 
+    totalPrice: 91.98, 
+    status: "delivered", 
+    createdAt: "2026-09-12T10:30:00.000Z", 
+  }, 
+  { 
+    _id: "ord100311", 
+    user: "u1", 
+    items: [ 
+      { 
+        product: "p7", 
+        name: "JavaScript Handbook", 
+        price: 24.99, 
+        quantity: 1, 
+      }, 
+    ], 
+    shippingAddress: demoAddress, 
+    paymentMethod: "COD", 
+    itemsPrice: 24.99, 
+    shippingPrice: 7.99, 
+    totalPrice: 32.98, 
+    status: "shipped", 
+    createdAt: "2026-10-18T14:05:00.000Z", 
+  }, 
+];
